@@ -95,12 +95,20 @@ export default function Home() {
         {/* Top menu */}
         <header className="flex justify-end mb-8 gap-4">
           {!user ? (
-            <button
-              onClick={signIn}
-              className="px-4 py-2 bg-yellow-400 text-black rounded font-semibold hover:bg-yellow-300"
-            >
-              Registrarse / Iniciar Sesión
-            </button>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setTab('login')}
+                className="px-4 py-2 bg-gray-800 text-white rounded font-semibold hover:bg-gray-700"
+              >
+                Iniciar Sesión
+              </button>
+              <button
+                onClick={() => setTab('register')}
+                className="px-4 py-2 bg-yellow-400 text-black rounded font-semibold hover:bg-yellow-300"
+              >
+                Registrarse
+              </button>
+            </div>
           ) : (
             <div className="flex items-center gap-4">
               <span className="text-gray-800 font-semibold">Hola, {user.email}</span>
@@ -113,6 +121,7 @@ export default function Home() {
             </div>
           )}
         </header>
+
 
         {/* Secciones */}
         {tab === 'month' && (
