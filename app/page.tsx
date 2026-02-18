@@ -133,6 +133,30 @@ export default function Home() {
             </div>
           </section>
         )}
+        {tab === 'login' && (
+          <section id="login" className="mb-12">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Iniciar Sesión</h2>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              className="w-full p-4 rounded border border-gray-300 mb-2"
+            />
+            <button
+              onClick={async () => {
+                if (!email) return alert('Introduce tu email')
+                const { error } = await supabase.auth.signInWithOtp({ email })
+                if (error) alert(error.message)
+                else alert('Revisa tu correo para iniciar sesión')
+              }}
+              className="px-4 py-2 bg-gray-800 text-white rounded font-semibold hover:bg-gray-700"
+            >
+              Iniciar Sesión
+            </button>
+          </section>
+        )}
+        
         {tab === 'register' && (
           <section id="register" className="mb-12">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Registrarse</h2>
@@ -143,9 +167,9 @@ export default function Home() {
               onChange={e => setEmail(e.target.value)}
               className="w-full p-4 rounded border border-gray-300 mb-2"
             />
-            <button onClick={() => { setTab('register'); setEmail('') }}>Registrarse</button>
             <button
               onClick={async () => {
+                if (!email) return alert('Introduce tu email')
                 const { error } = await supabase.auth.signUp({ email })
                 if (error) alert(error.message)
                 else alert('Revisa tu correo para confirmar tu registro')
@@ -157,29 +181,6 @@ export default function Home() {
           </section>
         )}
 
-        {tab === 'login' && (
-          <section id="login" className="mb-12">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">Iniciar Sesión</h2>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              className="w-full p-4 rounded border border-gray-300 mb-2"
-            />
-            <button onClick={() => { setTab('login'); setEmail('') }}>Iniciar Sesión</button>
-            <button
-              onClick={async () => {
-                const { error } = await supabase.auth.signInWithOtp({ email })
-                if (error) alert(error.message)
-                else alert('Revisa tu correo para iniciar sesión')
-              }}
-              className="px-4 py-2 bg-gray-800 text-white rounded font-semibold hover:bg-gray-700"
-            >
-              Iniciar Sesión
-            </button>
-          </section>
-        )}
 
         {tab === 'community' && (
           <section id="community">
