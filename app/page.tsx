@@ -15,6 +15,7 @@ export default function Home() {
   const [user, setUser] = useState<any>(null)
   const [jokes, setJokes] = useState<Joke[]>([])
   const [content, setContent] = useState('')
+  const [email, setEmail] = useState('')
 
   // Obtener usuario actual
   useEffect(() => {
@@ -142,6 +143,7 @@ export default function Home() {
               onChange={e => setEmail(e.target.value)}
               className="w-full p-4 rounded border border-gray-300 mb-2"
             />
+            <button onClick={() => { setTab('register'); setEmail('') }}>Registrarse</button>
             <button
               onClick={async () => {
                 const { error } = await supabase.auth.signUp({ email })
@@ -154,6 +156,7 @@ export default function Home() {
             </button>
           </section>
         )}
+
         {tab === 'login' && (
           <section id="login" className="mb-12">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Iniciar Sesión</h2>
@@ -164,6 +167,7 @@ export default function Home() {
               onChange={e => setEmail(e.target.value)}
               className="w-full p-4 rounded border border-gray-300 mb-2"
             />
+            <button onClick={() => { setTab('login'); setEmail('') }}>Iniciar Sesión</button>
             <button
               onClick={async () => {
                 const { error } = await supabase.auth.signInWithOtp({ email })
